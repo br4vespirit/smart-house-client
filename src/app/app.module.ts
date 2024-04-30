@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent} from "@azure/msal-angular";
 import {InteractionType, PublicClientApplication} from "@azure/msal-browser";
 import {configuration} from "./auth-config";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
@@ -15,6 +15,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
+import {ClientService} from "./services/client.service";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatListModule} from "@angular/material/list";
     MatCardModule,
     MatListModule,
     MatDividerModule,
+    HttpClientModule
   ],
   providers: [
     {

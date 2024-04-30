@@ -17,13 +17,14 @@ export class ClientService {
 
   public createDevice(request: string): Observable<any> {
     return this._client.post<any>(
-      this.API_URL + "/auth/registration",
+      this.API_URL + "v1/users/811ec8ca-79f8-4204-b819-177483450959/devices",
       request,
       {headers: this.headers}
     )
   }
 
   public fetchDevices(): Observable<any> {
-    return this._client.get(this.API_URL)
+    return this._client.get(this.API_URL + "/v1/users/811ec8ca-79f8-4204-b819-177483450959/devices",
+      {headers: this.headers})
   }
 }
