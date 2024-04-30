@@ -1,0 +1,9 @@
+<mat-toolbar class="mat-elevation-z4" color="primary">
+  <a href="/" class="title">Smart House</a>
+
+  <div class="toolbar-spacer"></div>
+
+  <a mat-button [routerLink]="['dashboard']" *ngIf="isUserLoggedIn" style="margin-right: 15px">Dashboard</a>
+  <button mat-raised-button *ngIf="!isUserLoggedIn" (click)="login()">Login</button>
+  <button mat-raised-button *ngIf="isUserLoggedIn" (click)="logout()">Logout</button>
+</mat-toolbar>
