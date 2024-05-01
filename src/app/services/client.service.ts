@@ -8,7 +8,7 @@ import {Device} from "../models/device.model";
 })
 export class ClientService {
 
-  private API_URL: string = "http://52.188.36.213:8000/";
+  private API_URL: string = "https://smart-house-api.azurewebsites.net/";
   // private API_URL: string = "http://localhost:8000/";
 
   private headers: HttpHeaders = new HttpHeaders({
