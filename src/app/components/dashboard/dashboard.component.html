@@ -9,7 +9,12 @@
     <div *ngIf="devices.length > 0" class="device-cards">
       <mat-card *ngFor="let device of devices" class="device-card">
         <mat-card-content style="text-align: center; font-size: 24px">
-          {{ device }}
+          <div class="card-content">
+            <h2>{{ device.name }}</h2>
+            <p>{{ device.description }}</p>
+            <p>Location: {{ device.location }}</p>
+            <p>Model: {{ device.hardware_model }}</p>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>

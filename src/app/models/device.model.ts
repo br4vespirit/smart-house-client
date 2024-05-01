@@ -1,7 +1,10 @@
 export class Device {
   name?: string;
+  description?: string;
+  location?: string;
+  hardware_model?: string
 
-  constructor(name?: string) {
-    this.name = name;
+  constructor(partial: Partial<Device>) {
+    Object.assign(this, partial);
   }
 }

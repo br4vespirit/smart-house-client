@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.createDeviceSubscription.unsubscribe();
   }
 
-  async openModal(): Promise<string> {
+  async openModal(): Promise<Device | boolean> {
     const dialogRef = this.dialog.open(CreateDeviceModalComponent, {
       width: '400px'
     });
@@ -43,11 +43,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   async createDevice() {
-    const deviceName = await this.openModal();
-    if (deviceName.length != undefined) {
-      const newDevice= new Device(deviceName);
-      this.createDeviceSubscription = this._client.createDevice(newDevice).subscribe({
-        complete: () => this.devices.push(newDevice),
+    const result = await this.openModal();
+    if (result !== false) {
+      let device = result as Device;
+      this.createDeviceSubscription = this._client.createDevice(device).subscribe({
+        complete: () => {
+          this.devices.push(device);
+        },
         error: err => console.error('Error creating device: ', err)
       })
     }

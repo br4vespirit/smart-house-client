@@ -1,13 +1,23 @@
-<div class="test">
-  <h2 mat-dialog-title style="margin-bottom: 15px">Enter Device Name</h2>
-  <mat-dialog-content>
+<div class="middle">
+  <h2 mat-dialog-title style="margin-bottom: 15px">Create New Device</h2>
+  <mat-dialog-content [formGroup]="form" class="middle">
     <mat-form-field appearance="outline">
-      <input matInput #queryNameInput placeholder="Device Name">
+      <input matInput formControlName="name" placeholder="Device Name">
+      <mat-error *ngIf="name && name.invalid && name.touched">Name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="description" placeholder="Description">
+      <mat-error *ngIf="description && description.invalid && description.touched">Description is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="location" placeholder="Location">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="hardwareModel" placeholder="Hardware Model">
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions align="center">
     <button mat-button [mat-dialog-close]="false">Cancel</button>
-    <button mat-button color="primary" (click)="onSubmit(queryNameInput.value)"
-            [disabled]="queryNameInput.value.length < 5">Save</button>
+    <button mat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">Save</button>
   </mat-dialog-actions>
 </div>

@@ -21,12 +21,12 @@ export class ClientService {
     return this._client.post<any>(
       this.API_URL + "api/v1/devices",
       request,
-      {headers: {Authorization: "Bearer " + localStorage.getItem("access_token")}}
+      {headers: this.headers}
     )
   }
 
   public fetchDevices(): Observable<any> {
     return this._client.get(this.API_URL + "api/v1/devices",
-      {headers: {Authorization: "Bearer " + localStorage.getItem("access_token")}})
+      {headers: this.headers})
   }
 }

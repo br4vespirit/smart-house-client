@@ -15,10 +15,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
-import {ClientService} from "./services/client.service";
 import { CreateDeviceModalComponent } from './components/dashboard/create-device-modal/create-device-modal.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatDialogModule} from "@angular/material/dialog";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -43,9 +43,10 @@ import {MatDialogModule} from "@angular/material/dialog";
       },
       {
         interactionType: InteractionType.Redirect,
-        protectedResourceMap: new Map(
-          []
-        )
+        protectedResourceMap: new Map([
+          ["https://smart-house-api.azurewebsites.net/api/*", ["https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.write",
+            "https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.read"]]
+        ])
       },
     ),
     MatToolbarModule,
@@ -55,7 +56,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatDividerModule,
     HttpClientModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

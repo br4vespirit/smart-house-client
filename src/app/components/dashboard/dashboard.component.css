@@ -25,15 +25,29 @@
 }
 
 .device-card {
-  height: 300px;
+  height: auto;
   width: 300px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   margin: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.device-card:hover {
+  transform: scale(1.05);
+}
+
+.card-content {
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .sidebar, .cards {

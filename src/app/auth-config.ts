@@ -28,12 +28,10 @@ export const b2cPolicies = {
 
 export const configuration = {
   auth: {
-    clientId: '306a80d0-abe2-46f6-aac5-d91c7c12ef98', // This is the ONLY mandatory field that you need to supply.
-    authority: b2cPolicies.authorities.signUpSignIn.authority, // Defaults to "https://login.microsoftonline.com/common"
-    knownAuthorities: [b2cPolicies.authorityDomain], // Mark your B2C tenant's domain as trusted.
-    redirectUri: 'https://smart-house.azurewebsites.net', // Points to window.location.origin. You must register this URI on Azure portal/App Registration.
-    //  postLogoutRedirectUri:'/',
-    //  navigateToLoginRequestUrl:true
+    clientId: '306a80d0-abe2-46f6-aac5-d91c7c12ef98',
+    authority: b2cPolicies.authorities.signUpSignIn.authority,
+    knownAuthorities: [b2cPolicies.authorityDomain],
+    redirectUri: 'https://smart-house.azurewebsites.net',
   },
   cache: {
     cacheLocation: BrowserCacheLocation.LocalStorage, // Configures cache location. "sessionStorage" is more secure, but "localStorage" gives you SSO between tabs.
