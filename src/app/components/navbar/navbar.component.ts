@@ -69,6 +69,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logoutRedirect({postLogoutRedirectUri: "https://smart-house.azurewebsites.net/dashboard"})
+    this.authService.logoutRedirect({postLogoutRedirectUri: "https://smart-house.azurewebsites.net"})
   }
 }
