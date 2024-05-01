@@ -8,12 +8,16 @@
     </div>
     <div *ngIf="devices.length > 0" class="device-cards">
       <mat-card *ngFor="let device of devices" class="device-card">
-        <mat-card-content style="text-align: center; font-size: 24px">
-          <div class="card-content">
+        <mat-card-content>
+          <div class="card-content" style="margin-bottom: 30px">
             <h2>{{ device.name }}</h2>
             <p>{{ device.description }}</p>
             <p>Location: {{ device.location }}</p>
             <p>Model: {{ device.hardware_model }}</p>
+          </div>
+          <div class="button-container">
+            <button mat-raised-button class="delete-button" color="primary">Update</button>
+            <button mat-raised-button class="delete-button" color="warn">Delete</button>
           </div>
         </mat-card-content>
       </mat-card>
