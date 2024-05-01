@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Device} from "../models/device.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  private API_URL: string = "http://localhost:8000/";
+  private API_URL: string = "http://52.188.36.213:8000/";
+  // private API_URL: string = "http://localhost:8000/";
 
   private headers: HttpHeaders = new HttpHeaders({
     "Content-Type": "application/json",
@@ -15,16 +17,16 @@ export class ClientService {
 
   constructor(private _client: HttpClient) { }
 
-  public createDevice(request: string): Observable<any> {
+  public createDevice(request: Device): Observable<any> {
     return this._client.post<any>(
-      this.API_URL + "v1/users/811ec8ca-79f8-4204-b819-177483450959/devices",
+      this.API_URL + "api/v1/devices",
       request,
-      {headers: this.headers}
+      {headers: {Authorization: "Bearer " + localStorage.getItem("access_token")}}
     )
   }
 
   public fetchDevices(): Observable<any> {
-    return this._client.get(this.API_URL + "/v1/users/811ec8ca-79f8-4204-b819-177483450959/devices",
-      {headers: this.headers})
+    return this._client.get(this.API_URL + "api/v1/devices",
+      {headers: {Authorization: "Bearer " + localStorage.getItem("access_token")}})
   }
 }

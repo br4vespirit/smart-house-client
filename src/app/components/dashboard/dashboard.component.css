@@ -1,0 +1,41 @@
+.dashboard-page {
+  display: flex;
+}
+
+.sidebar {
+  width: 15%;
+  padding: 10px 10px 10px 30px;
+}
+
+.cards {
+  width: 85%;
+  padding: 10px;
+  display: flex;
+  border-left: 1px solid #ccc; /* Vertical divider */
+}
+
+.no-devices {
+  margin: auto;
+  text-align: center;
+}
+
+.device-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.device-card {
+  height: 300px;
+  width: 300px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar, .cards {
+  flex-grow: 1; /* Make both sidebar and cards divs stretch to full height */
+}

@@ -31,6 +31,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.authService.handleRedirectObservable().subscribe(data => {
+      if (data != null) {
+        localStorage.setItem("access_token", data.accessToken);
+      }
+    });
     this.msalBroadCastService.inProgress$.pipe(
       filter((interactionStatus: InteractionStatus) => interactionStatus == InteractionStatus.None),
       takeUntil(this._destroy)

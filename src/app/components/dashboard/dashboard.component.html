@@ -1,1 +1,17 @@
-<button (click)="perform()">Send request</button>
+<div class="dashboard-page">
+  <div class="sidebar">
+    <button mat-button color="primary" (click)="createDevice()">+ Create Device</button>
+  </div>
+  <div class="cards">
+    <div *ngIf="devices.length == 0" class="no-devices">
+      No devices present. Add new device.
+    </div>
+    <div *ngIf="devices.length > 0" class="device-cards">
+      <mat-card *ngFor="let device of devices" class="device-card">
+        <mat-card-content style="text-align: center; font-size: 24px">
+          {{ device }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -16,12 +16,16 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {ClientService} from "./services/client.service";
+import { CreateDeviceModalComponent } from './components/dashboard/create-device-modal/create-device-modal.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    CreateDeviceModalComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,9 @@ import {ClientService} from "./services/client.service";
     MatCardModule,
     MatListModule,
     MatDividerModule,
-    HttpClientModule
+    HttpClientModule,
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [
     {

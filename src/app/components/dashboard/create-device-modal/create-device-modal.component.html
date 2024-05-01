@@ -1,0 +1,13 @@
+<div class="test">
+  <h2 mat-dialog-title style="margin-bottom: 15px">Enter Device Name</h2>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <input matInput #queryNameInput placeholder="Device Name">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button color="primary" (click)="onSubmit(queryNameInput.value)"
+            [disabled]="queryNameInput.value.length < 5">Save</button>
+  </mat-dialog-actions>
+</div>
