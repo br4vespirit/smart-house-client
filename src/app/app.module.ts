@@ -19,13 +19,25 @@ import { CreateDeviceModalComponent } from './components/dashboard/create-device
 import {MatInputModule} from "@angular/material/input";
 import {MatDialogModule} from "@angular/material/dialog";
 import {ReactiveFormsModule} from "@angular/forms";
+import {NgApexchartsModule} from "ng-apexcharts";
+import { DeviceChartComponent } from './components/device-chart/device-chart.component';
+import { HistoricalFormComponent } from './components/dashboard/historical-form/historical-form.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatIconModule} from "@angular/material/icon";
+import { FormControlPipe } from './pipes/form-control.pipe';
+import { SubmitFormComponent } from './components/utils/submit-form/submit-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     DashboardComponent,
-    CreateDeviceModalComponent
+    CreateDeviceModalComponent,
+    DeviceChartComponent,
+    HistoricalFormComponent,
+    FormControlPipe,
+    SubmitFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,8 +56,12 @@ import {ReactiveFormsModule} from "@angular/forms";
       {
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
-          ["https://smart-house-api.azurewebsites.net/api/*", ["https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.write",
-            "https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.read"]]
+          ["https://api-smart-house-iot.azurewebsites.net/api/*", ["https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.write",
+            "https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.read"]],
+          ["https://smart-house-code-generation-function-app.azurewebsites.net/api/*", ["https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.write",
+            "https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.read"]],
+          ["https://smart-house-historical-data-function-app.azurewebsites.net/api/*", ["https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.write",
+            "https://smarthouseadb2c.onmicrosoft.com/smart-house-api/devices.read"]],
         ])
       },
     ),
@@ -57,7 +73,11 @@ import {ReactiveFormsModule} from "@angular/forms";
     HttpClientModule,
     MatInputModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgApexchartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule
   ],
   providers: [
     {

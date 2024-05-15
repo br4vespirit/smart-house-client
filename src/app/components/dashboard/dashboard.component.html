@@ -9,15 +9,14 @@
     <div *ngIf="devices.length > 0" class="device-cards">
       <mat-card *ngFor="let device of devices" class="device-card">
         <mat-card-content>
-          <div class="card-content" style="margin-bottom: 30px">
+          <div class="card-content" style="margin-bottom: 30px" routerLink="/dashboard/charts" [state]="device">
             <h2>{{ device.name }}</h2>
             <p>{{ device.description }}</p>
             <p>Location: {{ device.location }}</p>
             <p>Model: {{ device.hardware_model }}</p>
           </div>
           <div class="button-container">
-            <button mat-raised-button class="delete-button" color="primary">Update</button>
-            <button mat-raised-button class="delete-button" color="warn">Delete</button>
+            <button mat-raised-button class="delete-button" color="warn" (click)="deleteDevice(device.name!)">Delete</button>
           </div>
         </mat-card-content>
       </mat-card>

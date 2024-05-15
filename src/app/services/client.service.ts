@@ -8,7 +8,7 @@ import {Device} from "../models/device.model";
 })
 export class ClientService {
 
-  private API_URL: string = "https://smart-house-api.azurewebsites.net/";
+  private API_URL: string = "https://api-smart-house-iot.azurewebsites.net/api/";
   // private API_URL: string = "http://localhost:8000/";
 
   private headers: HttpHeaders = new HttpHeaders({
@@ -19,14 +19,26 @@ export class ClientService {
 
   public createDevice(request: Device): Observable<any> {
     return this._client.post<any>(
-      this.API_URL + "api/v1/devices",
+      this.API_URL + "devices",
       request,
       {headers: this.headers}
     )
   }
 
   public fetchDevices(): Observable<any> {
-    return this._client.get(this.API_URL + "api/v1/devices",
+    return this._client.get(this.API_URL + "devices",
       {headers: this.headers})
+  }
+
+  public deleteDevice(deviceName: string): Observable<any> {
+    return this._client.delete(this.API_URL + "v1/smart-house/devices?name=" + deviceName,
+      {headers: this.headers})
+  }
+
+  public updateDevice(deviceName: string, device: Device): Observable<any> {
+    console.log(device);
+    return this._client.put(this.API_URL + "v1/smart-house/devices?name=" + deviceName,
+      device,
+      {headers: this.headers});
   }
 }

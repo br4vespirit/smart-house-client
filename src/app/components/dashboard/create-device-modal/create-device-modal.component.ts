@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Device} from "../../../models/device.model";
 
 @Component({
@@ -12,52 +12,56 @@ export class CreateDeviceModalComponent {
   form: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private dialogRef: MatDialogRef<CreateDeviceModalComponent>
   ) {
-    this.form = new FormGroup<any>({
-      name: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
-      location: new FormControl('', []),
-      hardwareModel: new FormControl('', [])
+    this.form = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      location: [''],
+      hardwareModel: [''],
+      labels: this.fb.array([])
     });
+  }
 
+  addString() {
+    this.labels.push(this.fb.control('', [Validators.required]));
+  }
+
+  removeString(index: number) {
+    this.labels.removeAt(index);
   }
 
   onSubmit() {
-    let device = new Device({
-      name: this.name?.value,
-      description: this.description?.value,
-      location: this.location?.value,
-      hardware_model: this.hardwareModel?.value
-    })
-    this.dialogRef.close(device);
+    if (this.form.valid) {
+      let device = new Device({
+        name: this.name?.value,
+        description: this.description?.value,
+        location: this.location?.value,
+        hardware_model: this.hardwareModel?.value,
+        labels: this.labels.value
+      });
+      this.dialogRef.close(device);
+    }
   }
 
   get name() {
-    if (this.form)
-      return this.form.controls['name'];
-    return null;
+    return this.form.get('name');
   }
-
 
   get description() {
-    if (this.form)
-      return this.form.controls['description'];
-    return null;
+    return this.form.get('description');
   }
-
 
   get location() {
-    if (this.form)
-      return this.form.controls['location'];
-    return null;
+    return this.form.get('location');
   }
-
 
   get hardwareModel() {
-    if (this.form)
-      return this.form.controls['hardwareModel'];
-    return null;
+    return this.form.get('hardwareModel');
   }
 
+  get labels(): FormArray {
+    return this.form.get('labels') as FormArray;
+  }
 }

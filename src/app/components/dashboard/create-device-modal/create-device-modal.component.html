@@ -1,20 +1,38 @@
-<div class="middle">
-  <h2 mat-dialog-title style="margin-bottom: 15px">Create New Device</h2>
+<div>
+  <h2 mat-dialog-title class="dialog-title">Create New Device</h2>
   <mat-dialog-content [formGroup]="form" class="middle">
-    <mat-form-field appearance="outline">
-      <input matInput formControlName="name" placeholder="Device Name">
-      <mat-error *ngIf="name && name.invalid && name.touched">Name is required</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <input matInput formControlName="description" placeholder="Description">
-      <mat-error *ngIf="description && description.invalid && description.touched">Description is required</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <input matInput formControlName="location" placeholder="Location">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <input matInput formControlName="hardwareModel" placeholder="Hardware Model">
-    </mat-form-field>
+    <div style="display: flex;">
+      <div style="margin-right: 15%; margin-left: 11%">
+        <h3>Device info</h3>
+        <mat-form-field appearance="outline" style="display: block;">
+          <input matInput formControlName="name" placeholder="Device Name">
+          <mat-error *ngIf="name && name.invalid && name.touched">Name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="display: block;">
+          <input matInput formControlName="description" placeholder="Description">
+          <mat-error *ngIf="description && description.invalid && description.touched">Description is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="display: block;">
+          <input matInput formControlName="location" placeholder="Location">
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="display: block;">
+          <input matInput formControlName="hardwareModel" placeholder="Hardware Model">
+        </mat-form-field>
+      </div>
+      <div style="margin-right: 10%">
+        <h3>Add Labels</h3>
+        <div formArrayName="labels">
+          <div *ngFor="let control of labels.controls; let i = index" style="display: flex; align-items: center;">
+            <mat-form-field appearance="fill" style="flex: 1;">
+              <input matInput [formControl]="control | formControl" placeholder="Enter a label">
+            </mat-form-field>
+            <button mat-raised-button color="warn" type="button" (click)="removeString(i)"
+                    style="margin-left: 10px; margin-bottom: 20px;">Remove</button>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="addString()">Add Label</button>
+      </div>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions align="center">
     <button mat-button [mat-dialog-close]="false">Cancel</button>

@@ -1,0 +1,31 @@
+mat-divider {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+button {
+  width: 160px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.main {
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-right: 50px
+}
+
+h1 {
+  font-size: 24px;
+}
+
+.buttons {
+  margin-bottom: 15px;
+}
+
+.inline-buttons {
+  display: inline-block;
+}

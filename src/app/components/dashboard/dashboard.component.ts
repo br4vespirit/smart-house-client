@@ -4,6 +4,7 @@ import {ClientService} from "../../services/client.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateDeviceModalComponent} from "./create-device-modal/create-device-modal.component";
 import {firstValueFrom, Subscription} from "rxjs";
+import {SubmitFormComponent} from "../utils/submit-form/submit-form.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   fetchAllDevicesSubscription: Subscription = new Subscription();
   createDeviceSubscription: Subscription = new Subscription();
+  deleteDeviceSubscription: Subscription = new Subscription();
+  updateDeviceSubscription: Subscription = new Subscription();
 
   constructor(private _client: ClientService,
               private dialog: MatDialog) {
@@ -32,11 +35,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.fetchAllDevicesSubscription.unsubscribe();
     this.createDeviceSubscription.unsubscribe();
+    this.deleteDeviceSubscription.unsubscribe();
+    this.updateDeviceSubscription.unsubscribe();
   }
 
   async openModal(): Promise<Device | boolean> {
     const dialogRef = this.dialog.open(CreateDeviceModalComponent, {
-      width: '400px'
+      width: '800px'
     });
 
     return await firstValueFrom(dialogRef.afterClosed());
@@ -47,11 +52,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (result !== false) {
       let device = result as Device;
       this.createDeviceSubscription = this._client.createDevice(device).subscribe({
-        complete: () => {
-          this.devices.push(device);
+        next: (data) => {
+          let d = device as Device;
+          d.connection_string = data.connection_string
+          this.devices.push(d);
         },
         error: err => console.error('Error creating device: ', err)
       })
     }
+  }
+
+  async deleteDevice(deviceName: string) {
+    const result = await this.openDeleteModal();
+    if (result) {
+      this.deleteDeviceSubscription = this._client.deleteDevice(deviceName).subscribe({
+        next: () => {
+          this.removeDeviceWithName(deviceName);
+        }
+      });
+    }
+  }
+
+  async openDeleteModal(): Promise<boolean> {
+    const dialogRef = this.dialog.open(SubmitFormComponent, {
+      width: '400px'
+    });
+
+    return await firstValueFrom(dialogRef.afterClosed());
+  }
+
+  removeDeviceWithName(name: string): void {
+    this.devices = this.devices.filter(device => device.name !== name);
   }
 }

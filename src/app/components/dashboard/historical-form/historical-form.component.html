@@ -1,0 +1,22 @@
+<div class="middle">
+    <h2 mat-dialog-title style="margin-bottom: 15px">Choose period</h2>
+    <mat-dialog-content [formGroup]="form" class="middle">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="dateFromPicker" formControlName="dateFrom" placeholder="Date From">
+            <mat-datepicker-toggle matSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateFromPicker></mat-datepicker>
+            <mat-error *ngIf="dateFrom && dateFrom.invalid && dateFrom.touched">Date From is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="dateToPicker" formControlName="dateTo" placeholder="Date To">
+            <mat-datepicker-toggle matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateToPicker></mat-datepicker>
+            <mat-error *ngIf="dateTo && dateTo.invalid && dateTo.touched">Date To is required</mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-button [mat-dialog-close]="false">Cancel</button>
+        <button mat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+    </mat-dialog-actions>
+</div>

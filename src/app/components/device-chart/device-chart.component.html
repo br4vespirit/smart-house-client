@@ -1,0 +1,50 @@
+<div class="main">
+  <div style="display: flex; align-items: center;">
+    <h1 style="margin-right: 50px;">Device: {{device.name}}</h1>
+    <button mat-raised-button color="primary" (click)="downloadScript()">Get script</button>
+  </div>
+  <mat-divider></mat-divider>
+  <h2>Real Time Graph</h2>
+  <div class="buttons">
+    <button mat-raised-button color="primary" *ngIf="!isRealTimeGraphOpen" (click)="openRealTime()">Open</button>
+    <button mat-raised-button color="warn" *ngIf="isRealTimeGraphOpen" (click)="closeRealTime()">Close</button>
+  </div>
+  <div *ngIf="isRealTimeGraphOpen" style="display: flex; flex-wrap: wrap;">
+    <ng-container *ngFor="let chartOptions of realTimeChartOptions">
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [xaxis]="chartOptions.xaxis!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [grid]="chartOptions.grid!"
+        [stroke]="chartOptions.stroke!"
+        [title]="chartOptions.title!"
+        style="margin-right: 50px; margin-bottom: 10px; width: 500px"
+      ></apx-chart>
+    </ng-container>
+  </div>
+  <mat-divider></mat-divider>
+  <h2>Historical Graph</h2>
+  <div class="buttons">
+    <button mat-raised-button color="primary" *ngIf="!isHistoricalGraphOpen" (click)="openHistorical()">Open</button>
+    <div class="inline-buttons">
+      <button mat-raised-button color="warn" style="margin-right: 10px;"
+              *ngIf="isHistoricalGraphOpen" (click)="closeHistorical()">Close</button>
+      <button mat-raised-button color="primary" *ngIf="isHistoricalGraphOpen" (click)="next10Items()">Next 10</button>
+    </div>
+  </div>
+  <div *ngIf="isHistoricalGraphOpen" style="display: flex; flex-wrap: wrap;">
+    <ng-container *ngFor="let chartOptions of historicalChartOptions">
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [xaxis]="chartOptions.xaxis!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [grid]="chartOptions.grid!"
+        [stroke]="chartOptions.stroke!"
+        [title]="chartOptions.title!"
+        style="margin-right: 50px; margin-bottom: 10px; width: 500px"
+      ></apx-chart>
+    </ng-container>
+  </div>
+</div>
