@@ -23,6 +23,7 @@ import {HistoricalRequest} from "../../models/historical-request.model";
 import {ScriptRequest} from "../../models/script-request.model";
 import {ScriptService} from "../../services/script.service";
 import {Device} from "../../models/device.model";
+import {HistoricalReport} from "../../models/historical-report.model";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -64,6 +65,7 @@ export class DeviceChartComponent implements OnInit, OnDestroy {
   webSocketSubscription: Subscription = new Subscription();
   historicalDataSubscription: Subscription = new Subscription();
   deviceSubscription: Subscription = new Subscription();
+  historicalReportSubscription: Subscription = new Subscription();
 
   currentHistoricalDataIndex = 0;
 
@@ -96,6 +98,7 @@ export class DeviceChartComponent implements OnInit, OnDestroy {
     this.webSocketSubscription.unsubscribe();
     this.deviceSubscription.unsubscribe();
     this.historicalDataSubscription.unsubscribe();
+    this.historicalReportSubscription.unsubscribe();
   }
 
   openRealTime() {
@@ -139,7 +142,10 @@ export class DeviceChartComponent implements OnInit, OnDestroy {
                   name: this.device.labels![i],
                   data: this.realTimeData[i]
                 }
-              ]
+              ],
+              xaxis: {
+                categories: this.realTimeXAxis
+              }
             };
           }
         }
@@ -388,5 +394,30 @@ export class DeviceChartComponent implements OnInit, OnDestroy {
       a.click();
       window.URL.revokeObjectURL(url);
     });
+  }
+
+  async downloadReport() {
+    const result = await this.openModal();
+
+    if (result !== false) {
+      const r = result as HistoricalPeriod;
+      let request: HistoricalReport = new HistoricalReport({
+        dateFrom: r.dateFrom,
+        dateTo: r.dateTo,
+        deviceName: this.device.name,
+        labels: this.device.labels
+      })
+
+      this.historicalReportSubscription = this.historicalService.fetchHistoricalReport(request).subscribe((responseBlob: Blob) => {
+        const url = window.URL.createObjectURL(new Blob([responseBlob], { type: 'application/pdf' }));
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'report.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+    }
   }
 }

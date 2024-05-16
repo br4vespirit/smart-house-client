@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Device} from "../models/device.model";
 import {Observable} from "rxjs";
 import {HistoricalRequest} from "../models/historical-request.model";
+import {HistoricalReport} from "../models/historical-report.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,14 @@ export class HistoricalService {
         this.API_URL + "api/v1/smart-house/historical-data",
         request,
         {headers: this.headers}
+    );
+  }
+
+  public fetchHistoricalReport(request: HistoricalReport): Observable<any> {
+    return this._client.post(
+      this.API_URL + "api/v1/smart-house/historical-data/report",
+      request,
+      {responseType: "blob" as 'json', headers: this.headers}
     );
   }
 }
