@@ -7,8 +7,7 @@ import {MsalService} from "@azure/msal-angular";
 })
 export class WebSocketService {
 
-  // private API_URL: string = "wss://smart-house-websocke-webapp.azurewebsites.net/";
-  private API_URL: string = "ws://52.226.7.216:8000/";
+  private API_URL: string = "wss://smart-house-websocke-webapp.azurewebsites.net/";
 
   // @ts-ignore
   private socket$: WebSocketSubject<any>;
